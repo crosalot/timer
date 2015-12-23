@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/ws4redis.js"></script>
+
+    <script type="text/javascript">
+        var ws4redis = WS4Redis({
+            uri: '{{ WEBSOCKET_URI }}foobar?subscribe-broadcast&publish-broadcast&echo',
+            receive_message: receiveMessage,
+            heartbeat_msg: {{ WS4REDIS_HEARTBEAT }}
+        });
+
+        // attach this function to an event handler on your site
+        function sendMessage() {
+            ws4redis.send_message('A message');
+        }
+
+        // receive a message though the websocket from the server
+        function receiveMessage(msg) {
+            alert('Message from Websocket: ' + msg);
+        }
+    </script>
+</head>
+<body>
+
+</body>
+</html>
